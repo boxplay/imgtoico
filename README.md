@@ -5,7 +5,7 @@
 <h1>useage</h1>
 
 ```
-use boxplay\phpico\PHP_ICO;
+use boxplay\Phpico\Toico;
 /**
 * $sizes ico 大小
 * $path 保存路径
