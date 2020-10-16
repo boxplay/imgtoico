@@ -54,7 +54,7 @@ class PHP_ICO
         $this->createMap($file);
     }
 
-    public function createMap($file, $path = '.')
+    public function createIco($file, $path = '.')
     {
         $im = imagecreatefromjpeg($file) or imagecreatefrompng($file) or imagecreatefromgif($file);
         $imginfo = @getimagesize($file);
