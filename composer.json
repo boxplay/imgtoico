@@ -1,6 +1,12 @@
 {
     "name": "mrd/imgtoico",
     "description": "php img to ico",
+    "keywords": [
+        "php",
+        "ico",
+        "png",
+        "jpg"
+    ],
     "authors": [{
         "name": "bdu",
         "email": "bdu@kaikeba.com"
