@@ -3,32 +3,11 @@ namespace boxplay\phpico;
 
 class PHP_ICO
 {
-    /**
-     * Images in the BMP format.
-     *
-     * @var array
-     * @access private
-     */
-    public $_images = array();
-
-    /**
-     * Flag to tell if the required functions exist.
-     *
-     * @var boolean
-     * @access private
-     */
-    public $_has_requirements = false;
-
-    /**
-     * Constructor - Create a new ICO generator.
-     *
-     * If the constructor is not passed a file, a file will need to be supplied using the {@link PHP_ICO::add_image}
-     * function in order to generate an ICO file.
-     *
-     * @param string $file Optional. Path to the source image file.
-     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the source image should be rendered at in the generated ICO file. If sizes are not supplied, the size of the source image will be used.
-     */
-    public function __construct($file = false, $sizes = array())
+    public $file;
+    public $size;
+    public $path;
+    public $name;
+    public function __construct($file = false, $sizes = 32, $path = '.', $name = 'favicon')
     {
         $required_functions = array(
             'getimagesize',
@@ -49,21 +28,48 @@ class PHP_ICO
                 return;
             }
         }
+        $imginfo = getimagesize($file);
+        if (!$imginfo) {
+            return [
+                'error' => 'not a img',
+                'path' => $path . $name . '.ico',
+            ];
+        }
+        if ($imginfo && isset($imginfo['mime'])) {
+            if (!in_array($imginfo['mime'], ['image/jpeg', 'image/png', 'image/gif'])) {
+                return [
+                    'error' => 'img type is not supposed',
+                    'path' => $path . $name . '.ico',
+                ];
+            }
 
-        $this->_has_requirements = true;
-        $this->createMap($file);
+        }
+        $this->file = $file;
+        $this->path = $path;
+        $this->size = $sizes;
+        $this->name = $name;
+        $this->createIco();
     }
 
-    public function createIco($file, $path = '.')
+    public function createIco()
     {
-        $im = imagecreatefromjpeg($file) or imagecreatefrompng($file) or imagecreatefromgif($file);
-        $imginfo = @getimagesize($file);
-        $resize_im = @imagecreatetruecolor(32, 32);
-        $size = 32;
+        $im = imagecreatefromjpeg($this->file) or imagecreatefrompng($this->file) or imagecreatefromgif($this->file);
+        $imginfo = @getimagesize($this->file);
+        $resize_im = @imagecreatetruecolor($this->size, $this->size);
         imagesavealpha($im, true);
         imagealphablending($resize_im, false); //不合并颜色,直接用$im图像颜色替换,包括透明色
         imagesavealpha($resize_im, true); //不要丢了$resize_im图像的透明色,解决生成黑色背景的问题
-        imagecopyresampled($resize_im, $im, 0, 0, 0, 0, $size, $size, $imginfo[0], $imginfo[1]);
-        imagepng($resize_im, $path . '/timg.ico', 9);
+        imagecopyresampled($resize_im, $im, 0, 0, 0, 0, $this->size, $this->size, $imginfo[0], $imginfo[1]);
+        if (imagepng($resize_im, $this->path . '/' . $this->name . '.ico', 9)) {
+            imagedestroy($resize_im);
+            return [
+                'error' => 'ok',
+                'path' => $this->path . $this->name . '.ico',
+            ];
+        }
+        return [
+            'error' => 'error',
+            'path' => '',
+        ];
     }
 }
