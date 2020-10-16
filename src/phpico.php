@@ -1,7 +1,7 @@
 <?php
-namespace boxplay\phpico;
+namespace boxplay\Phpico;
 
-class PHP_ICO
+class Toico
 {
     public $file;
     public $size;
