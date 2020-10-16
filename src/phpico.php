@@ -63,7 +63,7 @@ class Toico
             imagedestroy($resize_im);
             return [
                 'error' => 'ok',
-                'path' => $this->path . $this->name . '.ico',
+                'path' => $this->path . '/' . $this->name . '.ico',
             ];
         }
         return [
