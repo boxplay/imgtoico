@@ -11,6 +11,6 @@ use boxplay\Phpico\Toico;
 * $path 保存路径
 * $name 保存名称
 **/
-$ico = new PHP_ICO('./timg.jpeg',32, $path = '.', $name = 'favicon');
+$ico = new Toico('./timg.jpeg',32, $path = '.', $name = 'favicon');
 
 ```
