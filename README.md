@@ -1,6 +1,6 @@
 # php imgtoico
 
-## composer require mrd/php-imgtoico
+## composer require mrd/imgtoico
 
 <h1>useage</h1>
 
