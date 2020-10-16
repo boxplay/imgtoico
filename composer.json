@@ -1,0 +1,14 @@
+{
+    "name": "mrd/imgtoico",
+    "description": "php img to ico",
+    "authors": [{
+        "name": "bdu",
+        "email": "bdu@kaikeba.com"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "boxplay\\phpico\\": "src/"
+        }
+    }
+}
