@@ -1,4 +1,4 @@
-# imgtoico
+# php imgtoico
 
 ## composer require mrd/php-imgtoico
 
