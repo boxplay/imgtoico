@@ -48,7 +48,6 @@ class Toico
         $this->path = $path;
         $this->size = $sizes;
         $this->name = $name;
-        $this->createIco();
     }
 
     public function createIco()
