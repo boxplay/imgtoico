@@ -7,6 +7,7 @@ class Toico
     public $size;
     public $path;
     public $name;
+    public $fileType;
     public function __construct($file = false, $sizes = 32, $path = '.', $name = 'favicon')
     {
         $required_functions = array(
@@ -44,15 +45,30 @@ class Toico
             }
 
         }
+        $this->fileType = $imginfo['mime'];
         $this->file = $file;
         $this->path = $path;
         $this->size = $sizes;
         $this->name = $name;
+        $this->createIco();
     }
 
     public function createIco()
     {
-        $im = imagecreatefromjpeg($this->file) or imagecreatefrompng($this->file) or imagecreatefromgif($this->file);
+        switch ($this->fileType) {
+            case 'image/jpeg':
+                $im = imagecreatefromjpeg($this->file);
+                break;
+            case 'image/jpg':
+                $im = imagecreatefromjpeg($this->file);
+                break;
+            case 'image/png':
+                $im = imagecreatefrompng($this->file);
+                break;
+            case 'image/gif':
+                $im = imagecreatefromgif($this->file);
+                break;
+        }
         $imginfo = @getimagesize($this->file);
         $resize_im = @imagecreatetruecolor($this->size, $this->size);
         imagesavealpha($im, true);
@@ -63,7 +79,7 @@ class Toico
             imagedestroy($resize_im);
             return [
                 'error' => 'ok',
-                'path' => $this->path . '/' . $this->name . '.ico',
+                'path' => $this->path . $this->name . '.ico',
             ];
         }
         return [
