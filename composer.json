@@ -1,5 +1,6 @@
 {
     "name": "mrd/imgtoico",
+    "version": "v0.0.6",
     "description": "php img to ico",
     "keywords": [
         "php",
@@ -8,8 +9,7 @@
         "jpg"
     ],
     "authors": [{
-        "name": "bdu",
-        "email": "bdu@kaikeba.com"
+        "name": "bdu"
     }],
     "license": "MIT",
     "require": {},
