@@ -1,6 +1,6 @@
 {
     "name": "boxplay/phpico",
-    "version": "v0.1.2",
+    "version": "v0.1.3",
     "description": "php img to ico",
     "keywords": [
         "php",
@@ -15,7 +15,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Phpico\\": "src/Phpico"
+            "boxplay\\Phpico\\": "src/Phpico"
         }
     }
 }
